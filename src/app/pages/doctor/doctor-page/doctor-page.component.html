@@ -1,0 +1,36 @@
+<app-sidebar></app-sidebar>
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h3 class="text-center">Doctors</h3>
+            <button type="button" class="btn btn-primary" (click)="goToNewDoctor()">
+                <span class="bi bi-cloud-upload-fill"></span>
+            </button>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                        <td>Phone</td>
+                        <td>Specialty</td>
+                        <td>Edit</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let doctor of doctors; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ doctor.name }}</td>
+                        <td>{{ doctor.phone }}</td>
+                        <td>{{doctor.specialty}}</td>
+                        <td>
+                            <button type="button" class="btn btn-warning">
+                                <span class="bi bi-pencil-square" (click)="goToEditDoctor(doctor.doctorId)"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

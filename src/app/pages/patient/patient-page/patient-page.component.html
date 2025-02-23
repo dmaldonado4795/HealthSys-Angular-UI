@@ -1,0 +1,42 @@
+<app-sidebar></app-sidebar>
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h3 class="text-center">Patients</h3>
+            <button type="button" class="btn btn-primary" (click)="goToNewPatient()">
+                <span class="bi bi-cloud-upload-fill"></span>
+            </button>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                        <td>Birth</td>
+                        <td>Gender</td>
+                        <td>Address</td>
+                        <td>Phone</td>
+                        <td>Email</td>
+                        <td>Edit</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let patient of patients; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ patient.name }}</td>
+                        <td>{{ patient.dateOfBirth }}</td>
+                        <td>{{ patient.gender }}</td>
+                        <td>{{ patient.address }}</td>
+                        <td>{{ patient.phone }}</td>
+                        <td>{{ patient.email }}</td>
+                        <td>
+                            <button type="button" class="btn btn-warning">
+                                <span class="bi bi-pencil-square" (click)="goToEditPatient(patient.patientId)"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
