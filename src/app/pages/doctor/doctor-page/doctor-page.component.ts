@@ -52,7 +52,7 @@ export class DoctorPageComponent {
     });
   }
 
-  goToNewDoctor():void{
+  goToNewDoctor(): void {
     this.router.navigate(['/doctor']);
   }
 

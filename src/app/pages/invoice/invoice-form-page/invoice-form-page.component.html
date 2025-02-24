@@ -1,0 +1,39 @@
+<app-sidebar></app-sidebar>
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <form [formGroup]="form" (ngSubmit)="saveInvoice()">
+                <div class="mb-3">
+                    <label id="appointment" for="text" class="form-label">Appointment</label>
+                    <select class="form-select" formControlName="appointment" [compareWith]="compareObjects">
+                        <option [value]="null">Select the appointment</option>
+                        <option *ngFor="let appointment of appointments" [ngValue]="appointment">
+                            {{appointment.reason}} | {{appointment.patient.name}} | {{appointment.doctor.name}}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label id="totalAmount" for="text" class="form-label">Total amount</label>
+                    <input type="number" class="form-control" placeholder="Enter the amount" formControlName="totalAmount"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label id="date" for="text" class="form-label">Date</label>
+                    <input type="date" class="form-control" placeholder="Enter the date" formControlName="date"
+                        required>
+                </div>
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group me-2" role="group">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="bi bi-cloud-check-fill"></span>
+                        </button>
+                    </div>
+                    <div class="btn-group me-2" role="group">
+                        <button type="button" class="btn btn-secondary" (click)="goBack()">
+                            <span class="bi bi-box-arrow-in-left"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<app-sidebar></app-sidebar>
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <form [formGroup]="form" (ngSubmit)="saveAppointment()">
+                <div class="mb-3">
+                    <label id="patient" for="text" class="form-label">Patient</label>
+                    <select class="form-select" formControlName="patient" [compareWith]="compareObjects">
+                        <option [value]="null">Select the patient</option>
+                        <option *ngFor="let patient of patients" [ngValue]="patient">{{ patient.name }}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label id="patient" for="text" class="form-label">Doctor</label>
+                    <select class="form-select" formControlName="doctor" [compareWith]="compareObjects">
+                        <option [value]="null">Select the doctor</option>
+                        <option *ngFor="let doctor of doctors" [ngValue]="doctor">{{ doctor.name }}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label id="reason" for="text" class="form-label">Reason</label>
+                    <input type="text" class="form-control" placeholder="Enter reason" formControlName="reason"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label id="date" for="text" class="form-label">Date</label>
+                    <input type="datetime-local" class="form-control" placeholder="Enter date" formControlName="date"
+                        required>
+                </div>
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group me-2" role="group">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="bi bi-cloud-check-fill"></span>
+                        </button>
+                    </div>
+                    <div class="btn-group me-2" role="group">
+                        <button type="button" class="btn btn-secondary" (click)="goBack()">
+                            <span class="bi bi-box-arrow-in-left"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

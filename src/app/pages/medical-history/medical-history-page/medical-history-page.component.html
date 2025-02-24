@@ -1,0 +1,39 @@
+<app-sidebar></app-sidebar>
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h3 class="text-center">Medical histories</h3>
+            <button type="button" class="btn btn-primary" (click)="goToNewMedicalHistory()">
+                <span class="bi bi-cloud-upload-fill"></span>
+            </button>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Patient</td>
+                        <td>Doctor</td>
+                        <td>Description</td>
+                        <td>Date</td>
+                        <td>Edit</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let medicalHistory of medicalHistories; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{medicalHistory.patient.name}}</td>
+                        <td>{{medicalHistory.doctor.name}}</td>
+                        <td>{{medicalHistory.description}}</td>
+                        <td>{{medicalHistory.lastUpdated | date:'fullDate'}}</td>
+                        <td>
+                            <button type="button" class="btn btn-warning">
+                                <span class="bi bi-pencil-square"
+                                    (click)="goToEditMedicalHistory(medicalHistory.historyId)"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
