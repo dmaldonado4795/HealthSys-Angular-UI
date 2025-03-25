@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../shared/sidebar/sidebar.component';
 import { Appointment } from '../../../core/models/appointment';
 import { Router } from '@angular/router';
-import { SessionService } from '../../../core/services/session/session.service';
 import { AppointmentService } from '../../../core/services/appointment/appointment.service';
 import Swal from 'sweetalert2';
 import { lastValueFrom } from 'rxjs';
@@ -18,18 +17,13 @@ import { lastValueFrom } from 'rxjs';
   styleUrl: './appointment-page.component.css'
 })
 export class AppointmentPageComponent {
-  
   appointments: Appointment[] = [];
 
   constructor(
     private router: Router,
-    private sessionService: SessionService,
     private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    if (!this.sessionService.getSession()) {
-      this.router.navigate(['/login']);
-    }
     this.getAppointments();
   }
 

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { lastValueFrom } from 'rxjs';
-import { SessionService } from '../../core/services/session/session.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -26,11 +25,10 @@ export class LoginPageComponent {
 
   constructor(
     private authService: AuthService,
-    private sessionService: SessionService,
     private router: Router) { }
 
   ngOnInit(): void {
-    if (this.sessionService.getSession()) {
+    if (this.authService.getAccessToken()) {
       this.router.navigate(['/home']);
     }
   }
@@ -54,8 +52,10 @@ export class LoginPageComponent {
             this.loginForm.value.username,
             this.loginForm.value.password
           ));
-          this.sessionService.createSession(resp.token);
+
+          this.authService.setTokens(resp.token, resp.refreshToken);
           this.router.navigate(['/home']);
+
           Swal.close();
         } catch (exception: any) {
           console.error(exception.error);

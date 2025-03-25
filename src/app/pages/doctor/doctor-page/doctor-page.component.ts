@@ -4,7 +4,6 @@ import { Doctor } from '../../../core/models/doctor';
 import Swal from 'sweetalert2';
 import { lastValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { SessionService } from '../../../core/services/session/session.service';
 import { Router } from '@angular/router';
 import { SidebarComponent } from "../../../shared/sidebar/sidebar.component";
 
@@ -18,18 +17,13 @@ import { SidebarComponent } from "../../../shared/sidebar/sidebar.component";
   styleUrl: './doctor-page.component.css'
 })
 export class DoctorPageComponent {
-
   doctors: Doctor[] = [];
 
   constructor(
     private router: Router,
-    private sessionService: SessionService,
     private doctorService: DoctorService) { }
 
   ngOnInit(): void {
-    if (!this.sessionService.getSession()) {
-      this.router.navigate(['/login']);
-    }
     this.getDoctors();
   }
 

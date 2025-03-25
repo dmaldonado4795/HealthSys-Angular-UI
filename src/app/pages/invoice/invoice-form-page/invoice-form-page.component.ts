@@ -20,7 +20,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './invoice-form-page.component.css'
 })
 export class InvoiceFormPageComponent {
-
   private id: number = 0;
   appointments: Appointment[] = [];
 

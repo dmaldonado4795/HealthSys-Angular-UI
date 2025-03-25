@@ -22,7 +22,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './medical-history-form-page.component.css'
 })
 export class MedicalHistoryFormPageComponent {
-
   private id: number = 0;
   doctors: Doctor[] = [];
   patients: Patient[] = [];

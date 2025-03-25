@@ -22,7 +22,6 @@ import { Patient } from '../../../core/models/patient';
   styleUrl: './appointment-form-page.component.css'
 })
 export class AppointmentFormPageComponent {
-
   private id: number = 0;
   doctors: Doctor[] = [];
   patients: Patient[] = [];
@@ -125,7 +124,7 @@ export class AppointmentFormPageComponent {
             return;
           }
           const resp: any = this.id != 0 ? await lastValueFrom(this.appointmentService.updateAppointment(this.id, this.form.value))
-              : await lastValueFrom(this.appointmentService.saveAppointment(this.form.value));
+            : await lastValueFrom(this.appointmentService.saveAppointment(this.form.value));
           if (resp.data) {
             this.goBack();
             Swal.close();

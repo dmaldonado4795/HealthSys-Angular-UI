@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
-import { Router } from '@angular/router';
-import { SessionService } from '../../core/services/session/session.service';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +9,9 @@ import { SessionService } from '../../core/services/session/session.service';
 })
 export class HomePageComponent {
 
-  constructor(private router: Router, private sessionService: SessionService) { }
+  constructor() {
+  }
 
   ngOnInit(): void {
-    if (!this.sessionService.getSession()) {
-      this.router.navigate(['/login']);
-    }
   }
 }

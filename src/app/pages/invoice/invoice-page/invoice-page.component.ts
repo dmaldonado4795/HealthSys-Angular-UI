@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SessionService } from '../../../core/services/session/session.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Invoice } from '../../../core/models/invoice';
@@ -18,18 +17,13 @@ import { InvoiceService } from '../../../core/services/invoice/invoice.service';
   styleUrl: './invoice-page.component.css'
 })
 export class InvoicePageComponent {
-
   invoices: Invoice[] = [];
 
   constructor(
     private router: Router,
-    private sessionService: SessionService,
     private invoiceService: InvoiceService) { }
 
   ngOnInit(): void {
-    if (!this.sessionService.getSession()) {
-      this.router.navigate(['/login']);
-    }
     this.getAppointments();
   }
 

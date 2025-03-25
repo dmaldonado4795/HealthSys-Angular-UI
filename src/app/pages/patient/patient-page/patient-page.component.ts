@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { SidebarComponent } from "../../../shared/sidebar/sidebar.component";
 import { Patient } from '../../../core/models/patient';
 import { Router } from '@angular/router';
-import { SessionService } from '../../../core/services/session/session.service';
 import { PatientService } from '../../../core/services/patient/patient.service';
 import Swal from 'sweetalert2';
 import { lastValueFrom } from 'rxjs';
@@ -22,13 +21,9 @@ export class PatientPageComponent {
 
   constructor(
     private router: Router,
-    private sessionService: SessionService,
     private patientService: PatientService) { }
 
   ngOnInit(): void {
-    if (!this.sessionService.getSession()) {
-      this.router.navigate(['/login']);
-    }
     this.getPatients();
   }
 
