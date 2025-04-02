@@ -25,6 +25,7 @@ export class AppointmentFormPageComponent {
   private id: number = 0;
   doctors: Doctor[] = [];
   patients: Patient[] = [];
+  isEditing: boolean = false;
 
   form: FormGroup = new FormGroup({
     date: new FormControl(null, [Validators.required]),
@@ -42,6 +43,7 @@ export class AppointmentFormPageComponent {
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params['id'] || 0;
+    this.isEditing = this.id !== 0;
     this.getPatients();
     this.getDoctors();
     if (this.id != 0) {

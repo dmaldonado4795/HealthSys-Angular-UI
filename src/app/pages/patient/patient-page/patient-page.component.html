@@ -1,42 +1,68 @@
 <app-sidebar></app-sidebar>
-<div class="container" style="padding-top: 100px;">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <h3 class="text-center">Patients</h3>
-            <button type="button" class="btn btn-primary" (click)="goToNewPatient()">
-                <span class="bi bi-cloud-upload-fill"></span>
+
+<div class="main-container">
+    <div class="content-wrapper">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1 class="mb-0">Patients</h1>
+                <p class="text-muted">Manage patient records</p>
+            </div>
+            <button type="button" class="btn btn-primary add-btn" (click)="goToNewPatient()">
+                <i class="bi bi-plus-lg me-2"></i>
+                New Patient
             </button>
-            <hr>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Name</td>
-                        <td>Birth</td>
-                        <td>Gender</td>
-                        <td>Address</td>
-                        <td>Phone</td>
-                        <td>Email</td>
-                        <td>Edit</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let patient of patients; let i = index">
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ patient.name }}</td>
-                        <td>{{ patient.dateOfBirth }}</td>
-                        <td>{{ patient.gender }}</td>
-                        <td>{{ patient.address }}</td>
-                        <td>{{ patient.phone }}</td>
-                        <td>{{ patient.email }}</td>
-                        <td>
-                            <button type="button" class="btn btn-warning">
-                                <span class="bi bi-pencil-square" (click)="goToEditPatient(patient.patientId)"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        </div>
+
+        <!-- Table Section -->
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let patient of patients; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-circle bg-light-primary me-2">
+                                            <i class="bi bi-person-fill"></i>
+                                        </div>
+                                        {{ patient.name }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-envelope text-primary me-2"></i>
+                                        {{ patient.email }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-telephone text-primary me-2"></i>
+                                        {{ patient.phone }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-icon btn-light me-2" 
+                                            (click)="goToEditPatient(patient.patientId)"
+                                            title="Edit Patient">
+                                        <i class="bi bi-pencil-fill text-primary"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

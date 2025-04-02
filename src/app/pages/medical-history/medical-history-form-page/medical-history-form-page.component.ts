@@ -25,6 +25,7 @@ export class MedicalHistoryFormPageComponent {
   private id: number = 0;
   doctors: Doctor[] = [];
   patients: Patient[] = [];
+  isEditing: boolean = false;
 
   form: FormGroup = new FormGroup({
     description: new FormControl(null, [Validators.required]),
@@ -41,6 +42,7 @@ export class MedicalHistoryFormPageComponent {
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params['id'] || 0;
+    this.isEditing = !!this.id;
     this.getPatients();
     this.getDoctors();
     if (this.id != 0) {

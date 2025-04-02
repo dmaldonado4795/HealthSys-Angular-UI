@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -17,24 +17,28 @@ import { CommonModule } from '@angular/common';
   templateUrl: './doctor-page-form.component.html',
   styleUrl: './doctor-page-form.component.css'
 })
-export class DoctorPageFormComponent {
+export class DoctorPageFormComponent implements OnInit {
 
+  form: FormGroup;
   private id: number = 0;
   specialties: string[] = ['Pediatrics', 'Cardiology', 'Dermatology', 'Neurology', 'Orthopedics', 'Oncology', 'Psychiatry', 'Radiology', 'Urology', 'Endocrinology', 'Anesthesiology', 'Ophthalmology'];
-
-  form: FormGroup = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
-    phone: new FormControl(null, [Validators.required]),
-    specialty: new FormControl(null, [Validators.required])
-  });
+  isEditing: boolean = false;
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router, 
     private activeRoute: ActivatedRoute, 
-    private doctorService: DoctorService) { }
+    private doctorService: DoctorService) { 
+      this.form = this.formBuilder.group({
+        name: [null, Validators.required],
+        phone: [null, Validators.required],
+        specialty: ['', [Validators.required, Validators.min(0)]]
+      });
+    }
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params['id'] || 0;
+    this.isEditing = !!this.id;
     if (this.id != 0) {
       this.getDoctor();
     }

@@ -1,23 +1,86 @@
-<nav class="navbar navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand mx-auto text-center" href="#">Health System</a>
-    </div>
-</nav>
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow-lg login-card">
-        <h2 class="text-center mb-4">Log in</h2>
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-            <div class="mb-3">
-                <label for="text" class="form-label">Username</label>
-                <input type="text" class="form-control" placeholder="Enter username" formControlName="username"
-                    required>
+<!-- Main container -->
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        <!-- Left side - Branding -->
+        <div class="col-lg-6 d-none d-lg-block position-relative">
+            <div class="brand-section h-100 d-flex align-items-center justify-content-center">
+                <div class="text-center text-white p-4">
+                    <h1 class="display-4 fw-bold mb-4">Health System</h1>
+                    <p class="lead">Your trusted partner in healthcare management</p>
+                    <div class="mt-4">
+                        <i class="fas fa-hospital fa-3x mb-3"></i>
+                        <p class="mb-0">Comprehensive Healthcare Solutions</p>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" placeholder="Enter password" formControlName="password"
-                    required>
+        </div>
+
+        <!-- Right side - Login Form -->
+        <div class="col-lg-6">
+            <div class="login-container min-vh-100 d-flex align-items-center justify-content-center p-4">
+                <div class="w-100 max-w-md">
+                    <!-- Mobile Logo -->
+                    <div class="d-lg-none text-center mb-4">
+                        <h2 class="fw-bold">Health System</h2>
+                    </div>
+
+                    <!-- Login Card -->
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body p-4 p-md-5">
+                            <h2 class="text-center mb-4">Welcome Back</h2>
+                            <p class="text-center text-muted mb-4">Please sign in to your account</p>
+
+                            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                                <div class="mb-4">
+                                    <label for="username" class="form-label">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="fas fa-user text-muted"></i>
+                                        </span>
+                                        <input type="text" 
+                                               class="form-control border-start-0 ps-0" 
+                                               id="username"
+                                               placeholder="Enter your username" 
+                                               formControlName="username"
+                                               [class.is-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                                        Username is required
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="fas fa-lock text-muted"></i>
+                                        </span>
+                                        <input type="password" 
+                                               class="form-control border-start-0 ps-0" 
+                                               id="password"
+                                               placeholder="Enter your password" 
+                                               formControlName="password"
+                                               [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                                        Password is required
+                                    </div>
+                                </div>
+
+                                <button type="submit" 
+                                        class="btn btn-primary w-100 py-3 mb-3"
+                                        [disabled]="isLoading">
+                                    <span *ngIf="!isLoading">Sign In</span>
+                                    <span *ngIf="isLoading">
+                                        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                        Signing in...
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
+        </div>
     </div>
 </div>

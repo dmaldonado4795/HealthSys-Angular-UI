@@ -1,36 +1,66 @@
 <app-sidebar></app-sidebar>
-<div class="container" style="padding-top: 100px;">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <h3 class="text-center">Doctors</h3>
-            <button type="button" class="btn btn-primary" (click)="goToNewDoctor()">
-                <span class="bi bi-cloud-upload-fill"></span>
+
+<div class="main-container">
+    <div class="content-wrapper">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1 class="mb-0">Doctors</h1>
+                <p class="text-muted">Manage your medical staff</p>
+            </div>
+            <button type="button" class="btn btn-primary add-btn" (click)="goToNewDoctor()">
+                <i class="bi bi-plus-lg me-2"></i>
+                Add Doctor
             </button>
-            <hr>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Name</td>
-                        <td>Phone</td>
-                        <td>Specialty</td>
-                        <td>Edit</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let doctor of doctors; let i = index">
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ doctor.name }}</td>
-                        <td>{{ doctor.phone }}</td>
-                        <td>{{doctor.specialty}}</td>
-                        <td>
-                            <button type="button" class="btn btn-warning">
-                                <span class="bi bi-pencil-square" (click)="goToEditDoctor(doctor.doctorId)"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        </div>
+
+        <!-- Table Section -->
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Specialty</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let doctor of doctors; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-circle bg-light-primary me-2">
+                                            <i class="bi bi-person-fill"></i>
+                                        </div>
+                                        {{ doctor.name }}
+                                    </div>
+                                </td>
+                                <td>{{ doctor.phone }}</td>
+                                <td>
+                                    <span class="badge bg-light-info text-info">
+                                        {{doctor.specialty}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-icon btn-light me-2" 
+                                            (click)="goToEditDoctor(doctor.doctorId)"
+                                            title="Edit Doctor">
+                                        <i class="bi bi-pencil-fill text-primary"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-icon btn-light" 
+                                            title="Delete Doctor">
+                                        <i class="bi bi-trash-fill text-danger"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

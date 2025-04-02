@@ -1,49 +1,61 @@
-import { Component } from '@angular/core';
-import { Appointment } from '../../../core/models/appointment';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AppointmentService } from '../../../core/services/appointment/appointment.service';
-import Swal from 'sweetalert2';
-import { lastValueFrom } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { InvoiceService } from '../../../core/services/invoice/invoice.service';
+import { PatientService } from '../../../core/services/patient/patient.service';
+import { AppointmentService } from '../../../core/services/appointment/appointment.service';
+import { lastValueFrom } from 'rxjs';
+import Swal from 'sweetalert2';
 import { SidebarComponent } from '../../../shared/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-invoice-form-page',
+  standalone: true,
   imports: [
     SidebarComponent,
     CommonModule,
     ReactiveFormsModule
   ],
   templateUrl: './invoice-form-page.component.html',
-  styleUrl: './invoice-form-page.component.css'
+  styleUrls: ['./invoice-form-page.component.css']
 })
-export class InvoiceFormPageComponent {
-  private id: number = 0;
-  appointments: Appointment[] = [];
-
-  form: FormGroup = new FormGroup({
-    totalAmount: new FormControl(null, [Validators.required]),
-    date: new FormControl(null, [Validators.required]),
-    appointment: new FormControl(null, [Validators.required])
-  });
+export class InvoiceFormPageComponent implements OnInit {
+  form: FormGroup;
+  isEditing: boolean = false;
+  invoiceId: number | null = null;
+  patients: any[] = [];
+  appointments: any[] = [];
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
-    private activeRoute: ActivatedRoute,
-    private appointmentService: AppointmentService,
-    private invoiceService: InvoiceService) { }
+    private route: ActivatedRoute,
+    private invoiceService: InvoiceService,
+    private patientService: PatientService,
+    private appointmentService: AppointmentService
+  ) {
+    this.form = this.formBuilder.group({
+      patient: [null, Validators.required],
+      appointment: [null, Validators.required],
+      totalAmount: ['', [Validators.required, Validators.min(0)]]
+    });
+
+    // Check if we're editing an existing invoice
+    this.invoiceId = this.route.snapshot.paramMap.get('id') ? Number(this.route.snapshot.paramMap.get('id')) : null;
+    this.isEditing = !!this.invoiceId;
+  }
 
   ngOnInit(): void {
-    this.id = this.activeRoute.snapshot.params['id'] || 0;
-    this.getAppointments();
-    if (this.id != 0) {
-      this.getInvoice();
+    this.loadPatients();
+    this.loadAppointments();
+    if (this.isEditing && this.invoiceId) {
+      this.loadInvoice(this.invoiceId);
     }
   }
 
-  getInvoice(): void {
+  loadPatients(): void {
     Swal.fire({
       icon: 'info',
       text: 'Loading...',
@@ -51,8 +63,8 @@ export class InvoiceFormPageComponent {
       didOpen: async () => {
         try {
           Swal.showLoading();
-          const resp: any = await lastValueFrom(this.invoiceService.getInvoice(this.id));
-          this.form.patchValue(resp.data);
+          const resp: any = await lastValueFrom(this.patientService.getPatients());
+          this.patients = resp.data;
           Swal.close();
         } catch (exception: any) {
           console.error(exception.error);
@@ -63,7 +75,7 @@ export class InvoiceFormPageComponent {
     });
   }
 
-  getAppointments(): void {
+  loadAppointments(): void {
     Swal.fire({
       icon: 'info',
       text: 'Loading...',
@@ -73,6 +85,26 @@ export class InvoiceFormPageComponent {
           Swal.showLoading();
           const resp: any = await lastValueFrom(this.appointmentService.getAppointments());
           this.appointments = resp.data;
+          Swal.close();
+        } catch (exception: any) {
+          console.error(exception.error);
+          const message: any = exception.error.message;
+          Swal.fire('Error', message, 'error');
+        }
+      }
+    });
+  }
+
+  loadInvoice(id: number): void {
+    Swal.fire({
+      icon: 'info',
+      text: 'Loading...',
+      allowOutsideClick: false,
+      didOpen: async () => {
+        try {
+          Swal.showLoading();
+          const resp: any = await lastValueFrom(this.invoiceService.getInvoice(id));
+          this.form.patchValue(resp.data);
           Swal.close();
         } catch (exception: any) {
           console.error(exception.error);
@@ -97,8 +129,12 @@ export class InvoiceFormPageComponent {
             Swal.fire('Error', 'Please fill in all required fields.', 'error');
             return;
           }
-          const resp: any = this.id != 0 ? await lastValueFrom(this.invoiceService.updateInvoice(this.id, this.form.value))
-            : await lastValueFrom(this.invoiceService.saveInvoice(this.form.value));
+
+          const invoiceData = this.form.value;
+          const resp: any = this.isEditing && this.invoiceId
+            ? await lastValueFrom(this.invoiceService.updateInvoice(this.invoiceId, invoiceData))
+            : await lastValueFrom(this.invoiceService.saveInvoice(invoiceData));
+
           if (resp.data) {
             this.goBack();
             Swal.close();

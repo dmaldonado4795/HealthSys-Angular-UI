@@ -1,0 +1,84 @@
+.main-container {
+    margin-left: 250px;
+    padding: 2rem;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.header-content h1 {
+    font-size: 1.75rem;
+    color: #2c3e50;
+}
+
+.card {
+    background: white;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.form-label {
+    color: #2c3e50;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+
+.form-control, .form-select {
+    border-left: none;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #ced4da;
+    box-shadow: none;
+}
+
+.input-group:focus-within .input-group-text,
+.input-group:focus-within .form-control,
+.input-group:focus-within .form-select {
+    border-color: #3498db;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-light {
+    background: #f8f9fa;
+    border-color: #ced4da;
+}
+
+.btn-light:hover {
+    background: #e9ecef;
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+@media (max-width: 991.98px) {
+    .main-container {
+        margin-left: 0;
+    }
+}

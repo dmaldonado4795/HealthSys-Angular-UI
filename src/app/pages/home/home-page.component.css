@@ -1,41 +1,271 @@
-.jumbotron {
-    background: url('https://source.unsplash.com/1600x900/?technology') no-repeat center center;
-    background-size: cover;
-    color: white;
-    padding: 100px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.jumbotron .container {
-    background: rgba(100, 100, 100, 0.5);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.features-container {
+:host {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-    flex-wrap: wrap;
+    width: 100%;
+    min-height: 100vh;
 }
 
+/* Main container with sidebar */
+.main-container {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    transition: all 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* Main section */
+.main-section {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    opacity: 0.1;
+}
+
+/* Hero Content */
+.hero-content {
+    color: white;
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    margin-bottom: 4rem;
+}
+
+.hero-content h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+}
+
+.hero-content .lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Features Container */
+.features-container {
+    position: relative;
+    z-index: 1;
+    background: white;
+    padding: 3rem 0;
+    border-radius: 2.5rem 2.5rem 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Feature Cards */
 .feature-card {
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    padding: 20px;
-    border-radius: 10px;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
     text-align: center;
-    width: 250px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .feature-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .feature-icon {
-    font-size: 40px;
-    margin-bottom: 10px;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.feature-card p {
+    color: #4a5568;
+    margin-bottom: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Additional Info Section */
+.additional-info {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.additional-info h2 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.additional-info .lead {
+    font-size: 1.2rem;
+}
+
+.additional-info .fas.fa-check-circle {
+    font-size: 1.5rem;
+    color: #3498db;
+}
+
+.stats-container {
+    background: #f8f9fa;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.stats-container .display-4 {
+    font-size: 2.5rem;
+    color: #3498db;
+    margin-bottom: 0.5rem;
+}
+
+.stats-container p {
+    font-size: 0.9rem;
+}
+
+/* Button styles */
+.btn-light {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1.75rem;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-light:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Animation for elements */
+.feature-card, .hero-content {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0d6efd;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0b5ed7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .main-section {
+        padding-top: 3rem;
+    }
+
+    .features-container {
+        padding: 2rem 0;
+    }
+
+    .hero-content {
+        padding-top: 1rem;
+    }
+
+    .additional-info {
+        margin-top: 3rem;
+        padding-top: 2rem;
+    }
+
+    .additional-info h2 {
+        font-size: 2rem;
+    }
+
+    .stats-container .display-4 {
+        font-size: 2rem;
+    }
+
+    .main-container {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .main-section {
+        padding-top: 2rem;
+    }
+
+    .hero-content {
+        margin-bottom: 2rem;
+    }
+
+    .features-container {
+        border-radius: 1.5rem 1.5rem 0 0;
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.25rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .additional-info h2 {
+        font-size: 1.75rem;
+    }
+
+    .stats-container .display-4 {
+        font-size: 1.75rem;
+    }
 }

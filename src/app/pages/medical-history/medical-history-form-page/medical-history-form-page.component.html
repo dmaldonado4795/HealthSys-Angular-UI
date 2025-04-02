@@ -1,40 +1,87 @@
 <app-sidebar></app-sidebar>
-<div class="container" style="padding-top: 100px;">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <form [formGroup]="form" (ngSubmit)="saveMedicalHistory()">
-                <div class="mb-3">
-                    <label id="patient" for="text" class="form-label">Patient</label>
-                    <select class="form-select" formControlName="patient" [compareWith]="compareObjects">
-                        <option [value]="null">Select the patient</option>
-                        <option *ngFor="let patient of patients" [ngValue]="patient">{{ patient.name }}</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label id="doctor" for="text" class="form-label">Doctor</label>
-                    <select class="form-select" formControlName="doctor" [compareWith]="compareObjects">
-                        <option [value]="null">Select the doctor</option>
-                        <option *ngFor="let doctor of doctors" [ngValue]="doctor">{{ doctor.name }}</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label id="description" for="text" class="form-label">Description</label>
-                    <input type="text" class="form-control" placeholder="Enter the description"
-                        formControlName="description" required>
-                </div>
-                <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group me-2" role="group">
-                        <button type="submit" class="btn btn-primary">
-                            <span class="bi bi-cloud-check-fill"></span>
+
+<div class="main-container">
+    <div class="content-wrapper">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1 class="mb-0">{{ isEditing ? 'Edit Medical History' : 'New Medical History' }}</h1>
+                <p class="text-muted">{{ isEditing ? 'Update medical record' : 'Create a new medical record' }}</p>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="saveMedicalHistory()">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Patient</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person"></i>
+                                </span>
+                                <select class="form-select" formControlName="patient" [compareWith]="compareObjects">
+                                    <option [value]="null">Select patient</option>
+                                    <option *ngFor="let patient of patients" [ngValue]="patient">
+                                        {{ patient.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Doctor</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person-badge"></i>
+                                </span>
+                                <select class="form-select" formControlName="doctor" [compareWith]="compareObjects">
+                                    <option [value]="null">Select doctor</option>
+                                    <option *ngFor="let doctor of doctors" [ngValue]="doctor">
+                                        {{ doctor.name }} - {{ doctor.specialty }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Diagnosis</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-clipboard2-pulse"></i>
+                                </span>
+                                <input type="text" class="form-control" 
+                                       placeholder="Enter diagnosis"
+                                       formControlName="description" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mb-4">
+                            <label class="form-label">Description</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-file-text"></i>
+                                </span>
+                                <textarea class="form-control" rows="4" 
+                                          formControlName="description" 
+                                          placeholder="Enter detailed description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-light" (click)="goBack()">
+                            <i class="bi bi-arrow-left me-2"></i>
+                            Back
+                        </button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+                            <i class="bi bi-check-lg me-2"></i>
+                            {{ isEditing ? 'Update' : 'Save' }}
                         </button>
                     </div>
-                    <div class="btn-group me-2" role="group">
-                        <button type="button" class="btn btn-secondary" (click)="goBack()">
-                            <span class="bi bi-box-arrow-in-left"></span>
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
